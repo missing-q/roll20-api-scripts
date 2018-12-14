@@ -192,6 +192,7 @@
                 <p>Les scripts supportent l'utilisation de la règle des points de chance, des points de récupérations, des points de mana (et de magie puissante ou rapide, ainsi que de tempête de mana).</p>
                 <p>J'ai aussi choisi, comme proposé par Kegron, de diminuer la DEF de tous les protagonistes après un certain nombre de tours de combat (-2 tous les 5 tours).</p>
                 <p>Le script utilise aussi une règle de blessures graves : chaque fois qu'un personnage reçoit plus de DM que la somme de sa constitution et de son niveau, ou qu'il tombe à 0 PV, il encaisse une perte d'un point de récupération. Si il était à 0 points de récupération, il devient gravement blessé, ce qui le rend <i>affaibli</i>. Si le personnage était déjà gravement blessé, mais qu'il lui reste des PV, il tombe inconscient, et sinon, il meurt. Pour récupérer d'une blessure grave, le personnage doit se reposer une nuit, et réussir un test de CON difficulté 8 (avec le d12). Il est impossible de régénérer les points de récupération quand on est gravement blessé.<p>
+                <p>Il est possible de changer les options du script avec la commande <code>!cof-options</code>.</p>
               </div>
             </div>
             <h2 class="text-primary" id="action_principales">3. Actions principales</h2>
@@ -202,6 +203,7 @@
                 <h4 class="text-secondary">Initiative : <code>!cof-init</code></h4>
                 <div class="decalage">
                   <p>Les tokens sélectionnés sont ajouté au tracker de tour. Si celui-ci n'existe pas, un nouveau est créé, avec compteur de tour à 1, et on rentre en combat.</p>
+                  <p>Une option du script (ajustable en utilisant <code>!cof-options</code>) permet d'utiliser la règle de l'initiative variable (ajout d'un d6 à l'initiative). </p>
                   <p>Les règles de tri suivent ce qui est donné p 70 : priorité aux PJs. Pour l'instant, on distingue un PJ d'un PNJ au dé de vie : si le personnage d'a pas de dé de vie, c'est un PNJ. Ensuite, entre PJs, priorité à la plus haute sagesse. Pour les PNJ, c'est aléatoire.</p>
                   <p>À chaque instant, le token dont c'est le tour d'agir est signalé par un drapeau noir.</p>
                   <div class="alert alert-primary">
@@ -467,6 +469,7 @@
               <h3 class="text-info" id="surprise">3.6 Surprise : <code>!cof-surprise ?difficulte</code></h3>
               <div class="decalage">
                 <p>Fait un test de surprise sur tous les tokens sélectionné. Si la difficulté n'est pas présente, ils sont automatiquement surpris. Les valeurs des attributs (hors fiche) <code>vigilance</code> et <code>perception</code> sont ajoutés au test de sagesse.</p>
+                <p>Si vous souhaitez préciser que la surprise est le fait d'un personnage ou effet non vivant (pour ne pas faire bénéficier du bonus de la capacité Radar mental), vous pouvez rajouter l'option <code>--nonVivant</code>.</p>
               </div>
               <h3 class="text-info" id="statut_etats">3.7 Statut et états</h3>
               <div class="decalage">
@@ -848,9 +851,9 @@
                 <ol>
                   <li><strong>Injonction</strong> : utiliser <code>!cof-injonction @{selected|token_id} @{target|token_id} --portee 20</code></li>
                   <li><strong>Sommeil</strong> : <code>!cof-sommeil @{selected|token_id} --disque @{target|token_id} 5 20</code>. Pour sélectionner le centre de la zone, on peut utiliser un personnage fictif (avec un token représentant une cible, par exemple) ayant 0 de max de PV.</li>
-                  <li><strong>Confusion</strong>: faire une attaque de portée 20 m, et pour la macro, utiliser les options <code>--pasDeDmg --sortilege --mana 1 --effet confusion [[3+@{selected|CHA}]] --saveParTour SAG [[10+@{selected|CHA}]]</code>. Si vous utilisez les options de magie puissante, vous pouvez remplacer la durée par <code>?{Y consacrer tout le tour?|Oui,[[6+2*@{selected|CHA}]]|Non,[[3+@{selected|CHA}]]}</code>.  Et si à la place, vous souhaitez utiliser l'option de tempête de mana, vous pouvez rajouter <code>--rang 3 ?{Tempête de mana?|Oui,--tempeteDeMana|Non,&amp;#32;}</code>.</li>
+                  <li><strong>Confusion</strong>: faire une attaque de portée 20 m, et pour la macro, utiliser les options <code>--pasDeDmg --sortilege --attaqueMentale --mana 1 --effet confusion [[3+@{selected|CHA}]] --saveParTour SAG [[10+@{selected|CHA}]]</code>. Si vous utilisez les options de magie puissante, vous pouvez remplacer la durée par <code>?{Y consacrer tout le tour?|Oui,[[6+2*@{selected|CHA}]]|Non,[[3+@{selected|CHA}]]}</code>.  Et si à la place, vous souhaitez utiliser l'option de tempête de mana, vous pouvez rajouter <code>--rang 3 ?{Tempête de mana?|Oui,--tempeteDeMana|Non,&amp;#32;}</code>.</li>
                   <li><strong>Amitié</strong>: pas de support particulier, sinon <code>!cof-lancer-sort 2 lance un sort d'amitié</code></li>
-                  <li><strong>Domination</strong> : utiliser <code>!cof-attaque-magique @{selected|token_id} @{target|token_id} --mana 3 --portee 20</code></li>
+                  <li><strong>Domination</strong> : utiliser <code>!cof-attaque-magique @{selected|token_id} @{target|token_id} --mana 3 --portee 20 --attaqueMentale</code></li>
                 </ol>
                 <h4 class="text-secondary">Voie des illusions</h4>
                 <ol>
@@ -982,6 +985,7 @@
                 <h4 class="text-secondary">Voie du familier</h4>
                 <ol>
                   <li><strong>Familier</strong> : créer un token pour le familier, avec vue et controlé par le joueur. Le partage des PV n'est pas géré.</li>
+                  <li><strong>Résistance</strong> : ajouter la valeur de RD sur la fiche du familier.</li>
                 </ol>
                 <h4 class="text-secondary">Voie des mutations</h4>
                 <ol>
@@ -1179,28 +1183,28 @@
                 <h4 class="text-secondary">Voie de l'attaque mentale</h4>
                 <ol>
                   <li><strong>Attaque mentale</strong> : faire 2 attaques, une pour les DMs léthaux, avec les options <code>--sortilege --attaqueMentale</code> et l'autre avec l'option supplémentaire <code>--tempDmg</code>.</li>
-                  <li><strong>Bouclier psi</strong> : </li>
+                  <li><strong>Bouclier psi</strong> : ajouter un attribut <code>bouclierPsi</code> de valeur <code>true</code>.</li>
                 </ol>
                 <h4 class="text-secondary">Voie du contrôle corporel</h4>
                 <ol>
-                  <li><strong>Proprioception</strong> :  </li>
+                  <li><strong>Proprioception</strong> : ajouter les PVs sur la fiche, et mettre un attribut <code>proprioception</code> à <code>true</code>. </li>
                   <li><strong>Transe de régénération</strong> : <code>!cof-soin @{selected|token_id} 1d6+[[@{selected|NIVEAU} + @{selected|CHA}]] --limiteParJour <i>rang</i></code>. Il faut tirer les 2d6 pour savoir la durée de la transe. Si vous autorisez les options de tempête de mana pour ce profil, vous pouvez rajouter <code>--rang 2 ?{Tempête de mana?|Oui,--tempeteDeMana|Non,&amp;#32;}</code></li>
                 </ol>
                 <h4 class="text-secondary">Voie de l'empathie</h4>
                 <ol>
-                  <li><strong>Perception extra-sensorielle</strong> : </li>
-                  <li><strong>Défense intuitive</strong> : </li>
+                  <li><strong>Perception extra-sensorielle</strong> : ajuster l'initiative et ajouter le bonus à un attribut <code>perception</code> (pour les jets).</li>
+                  <li><strong>Défense intuitive</strong> : ajouter un attribut <code>defenseIntuitive</code> de valeur <code>true</code>. Ne pas modifier la DEF sur la fiche, la sagesse sera automatiquement prise en compte.</li>
                 </ol>
                 <h4 class="text-secondary">Voie de la télékinésie</h4>
                 <ol>
                   <li><strong>Manipulation à distance</strong> : pour les attaques à distance, le plus simple est d'utiliser une autre attaque en utilisant le score d'attaque magique et le bon modificateur de DMs.</li>
-                  <li><strong>Champ de protection</strong> : </li>
+                  <li><strong>Champ de protection</strong> : pour l'effet de base, si vous suivez les règles, ajustez simplement la DEF sur la fiche. Si vous préférez en faire un sort, vous pouvez utiliser la commande <code>!cof-effet-temp champDeProtection [[5+@{selected|CHA}]]</code>. La valeur par défaut est celle d'un attribut <code>voieDeLaTelekinesie</code>, et pour utiliser une autre valeur, on peut utiliser l'option <code>--valeur</code>. Pour le champ à distance, faire <code>!cof-effet-temp champDeProtection 1 --lanceur @{selected|token_id} --portee 10 --valeur <em>n</em> --target @{target|token_id}</code>. </li>
                   <li><strong>Onde de choc</strong> : faire une attaque magique de contact (portée non définie ou nulle), de dégâts 2d6 + Mod. de CHA. Si le lbale de cette attaque est <i>L</i>, la macro pour l'utiliser sera <code>!cof-attack @{selected|token_id} @{selected|token_id} <i>L</i> --auto --disque ?{Portée (max 10) ?|10} --etat renverse --save FOR [[10+@{selected|CHA}]] --mana 1 --targetFx explode-magic</code>. Si vous souhaitez utiliser les options de tempête de mana pour ce profil, rajoutez <code>--rang 3 ?{Tempête de mana?|Oui,--tempeteDeMana|Non,&amp;#32;}</code>.</li>
                 </ol>
                 <h4 class="text-secondary">Voie de la télépathie</h4>
                 <ol>
                   <li><strong>Télépathie</strong> : pas de support particulier.</li>
-                  <li><strong>Radar mental</strong> : </li>
+                  <li><strong>Radar mental</strong> : ajouter un attribut <code>radarMental</code>, de valeur le bonus procuré par le radar mental (2 fois le rang dans la voie).</li>
                 </ol>
               </div>
               <h3 class="text-info" id="Rôdeur">Rôdeur</h3>
@@ -1245,13 +1249,19 @@
               <h3 class="text-info" id="Samouraï">Samouraï</h3>
               <div class="decalage">
                 <h4 class="text-secondary">Voie de l'arc et du cheval</h4>
+                <ol>
+                  <li><strong>Monture loyale</strong> : ajouter un attribut <code>montureLoyale</code>, de valeur <code>true</code>. Pour la monture, il faut faire un personnage avec un attribut <code>monture</code> à <code>true</code>. Pour monter de la monture, utiliser <code>!cof-en-selle @{selected|token_id} nom_de_la_monture</code>, et pour en descendre, il suffit de bouger le token du samouraï.</li>
+                  <li><strong>Tir en mouvement</strong> : pas de support particulier.</li>
+                </ol>
                 <h4 class="text-secondary">Voie du dirigeant</h4>
                 <ol>
                   <li><strong>Éduqué</strong> : simplement noter les bonus et compétences sur la fiche, ou des attributs <code>art</code> et <code>seduction</code>, si vous utilisez <code>!cof-jet</code>.</li>
+                  <li><strong>Homme de cour</strong> : ajouter un attribut <code>étiquette</code>, de valeur 5.</li>
                 </ol>
                 <h4 class="text-secondary">Voie de l'honneur</h4>
                 <ol>
                   <li><strong>Chef né</strong> : ajouter un attrubut <code>immunitePeur</code>, de valeur <code>true</code>, et des attributs ou compétences pour l'intimidation et commander.</li>
+                  <li><strong>Défi</strong> : <code>!cof-defi-samourai @{selected|token_id} @{target|token_id} <i>bonus</i></code>. Le bonus en argument est optionnel. Si il n'est pas présent, le script utilise la valeur d'un attribut <code>voieDeLHonneur</code>.</li>
                 </ol>
                 <h4 class="text-secondary">Voie du ki</h4>
                 <ol>
@@ -1422,7 +1432,7 @@
                 </ol>
                 <h4 class="text-secondary">Voie du prédateur</h4>
                 <ol>
-                  <li><strong>Embuscade</strong> : Sélectionner les ennemis du prédateurs, et utiliser <code>!cof-surprise</code>. Par exemple, contre une équipe de joueurs dans le <i>handout</i> <code>Equipe joueurs</code> (cf la <a href="#methode_selection_groupes">méthode de sélection de groupes</a>), on pourra utiliser l'ability <code>!cof-surprise [[15 + @{selected|DEX}]] --equipe joueurs</code>. Pour les bonus en discrétion et init, reporter sur la fiche (et à un attribut <code>discrétion</code>), pour l'attaque en embuscade sur une cible surprise, rajouter à une attaque les options <code>--sournoise 1 --if moins FOR --etat renverse --endif</code>.</li>
+                  <li><strong>Embuscade</strong> : Sélectionner les ennemis du prédateurs, et utiliser <code>!cof-surprise</code>. Par exemple, contre une équipe de joueurs dans le <i>handout</i> <code>Equipe joueurs</code> (cf la <a href="#methode_selection_groupes">méthode de sélection de groupes</a>), on pourra utiliser l'ability <code>!cof-surprise [[15 + @{selected|DEX}]] --nonVivant @{selected|token_id} --equipe joueurs</code>. Pour les bonus en discrétion et init, reporter sur la fiche (et à un attribut <code>discrétion</code>), pour l'attaque en embuscade sur une cible surprise, rajouter à une attaque les options <code>--sournoise 1 --if moins FOR --etat renverse --endif</code>.</li>
                   <li><strong>Dévorer</strong> : ajouter les options d'attaque <code>--if deAttaque 15 --message @{selected|token_name} saisit sa proie entre ses crocs et peut faire une attaque gratuite --if moins FOR --etat renverse --etat immobilise FOR @{selected|token_id} --endif --endif</code>.</li>
                 </ol>
                 <h4 class="text-secondary">Voie du tueur</h4>

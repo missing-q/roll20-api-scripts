@@ -1,5 +1,24 @@
 # COFantasy: Historique des changements (depuis la version 1.0)
 
+##1.08
+
+* Ajout de la capacité vampirisation de la Voie de la magie maléfique
+* Plus d'affichages de jets de dé (pour les soins de groupe, baies, fortifiants, ...)
+
+##1.07
+
+### Capacités
+* Ajout du défi du samouraï
+* Ajout de la monture loyale du samouraï
+* Ajout du radar mental du psionique
+* Ajout de la capacité Bouclier psi du psionique
+* Ajout de la capacité Proprioception du psionique
+* Ajout de la capacité Défense intuitive du psionique
+* Ajout du champ de protection du psionique
+
+### Autres améliorations
+* Ajout d'une option pour ajouter 1d6 à l'initiative au début du combat
+* Les options de script sont maintenant accessibles avec la commande !cof-options. Les options sont persistantes pour une même partie.
 
 ## 1.06
 ### Capacités
@@ -9,11 +28,14 @@
 * Rang 1 de la voie de la magie de guérison
 
 ### Correction de bugs
+* Amélioration de la compatibilité avec les autres scripts
+* Le copy-paste de mobs devrait maintenant ne plus rajouter de numéros
 * !cof-lancer-sort n'envoie plus de message en double au GM
 * Undo devenu possible pour !cof-dmg appliqué à un token lié
 * Plus de message d'erreur dans le log quand on utilise un tableau au lieu d'un label pour une attaque
 
 ### Autres améliorations
+* Ajout de la commande !cof-manoeuvre pour faire des manoeuvres risquées
 * Ajout d'une commande pour les tests d'attaque au contact opposée
 * Ajout de la gestion des torches
 * Ajout d'un effet au feu grégeois
