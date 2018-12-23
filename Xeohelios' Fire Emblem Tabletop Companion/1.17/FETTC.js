@@ -5392,7 +5392,7 @@ on("change:campaign:turnorder", function(turn) {
                         })[0];
 
                         //numerical stats
-                        let HPcurrStat = getAttrByName(char, 'HP_current');
+                        let HPcurrStat = getAttrByName(char, 'HP_total');
                         let StrStat = getAttrByName(char, 'Str_total');
                         let MagStat = getAttrByName(char, 'Mag_total');
                         let SklStat = getAttrByName(char, 'Skl_total');
@@ -5479,8 +5479,12 @@ on("change:campaign:turnorder", function(turn) {
 
             if (obj.rng != "none") {
                 if (randomInteger(100) < (rng * obj.rngmod)) {
+                    log(rng * obj.rngmod)
                     skillMain();
                 } else {
+                    log(rng)
+                    log(obj.rngmod)
+                    log(rng * obj.rngmod)
                     log("RIP RNG")
                     return;
                 }
@@ -5491,7 +5495,7 @@ on("change:campaign:turnorder", function(turn) {
             }
         }
         for (var j in Skills){
-            Skill(Skills[i].ID, Skills[i], "turn")
+            Skill(Skills[j].ID, Skills[j], "turn")
         }
 });
 
